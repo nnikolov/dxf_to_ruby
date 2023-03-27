@@ -1,7 +1,7 @@
 #
 # dxf_to_xml
 #
-# v. 20230317
+# v. 20230327
 #
 # Nick Nikolov
 # nrnickolov@yahoo.com
@@ -92,9 +92,8 @@ module ActiveDxf
 
     # Maps the closing tag to the opening tag
     def translate_stack_val(val)
-      return "SECTION" if val == "ENDSEC"
-      return "TABLE" if val == "ENDTAB"
-      return "BLOCK" if val == "ENDBLK"
+      h = {ENDAPP: "APPID", ENDBLK: "BLOCK", ENDOBJ: "OBJECT", ENDSEC: "SECTION", ENDTAB: "TABLE", ENDVLX: "VLX", ENDVIEW: "VPORT", ENDVPORTS: "VPORTS"}
+      h[val.to_sym]
     end
 
     # Recursive method that loops through key, val pairs and adds them to the xml string
